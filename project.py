@@ -1,6 +1,10 @@
 from tensorflow.keras import callbacks, utils
 
+from models.resnet import ResNet
+from models.fined_resnet import FinedResNet
+
 import os
+import sys
 
 
 class Project:
@@ -39,7 +43,6 @@ class Project:
                          '../model_image/' + self.name + '.png',
                          show_shapes=True)
 
-
     def load_ckpt(self, model):
         if self._exist_ckpt():
             print("Load checkpoint: " + self._checkpoint_path)
@@ -48,3 +51,23 @@ class Project:
             print("Checkpoint is not found: " + self._checkpoint_path)
 
         return model
+
+    def build(self, model_name, input_shape, label_num):
+        """
+        Available model_name:
+            'resnet',
+            'fined_resnet'
+
+        """
+
+        shape = (input_shape[0], input_shape[1], 3)
+
+        if self.name == 'resnet':
+            return ResNet.build(shape,label_num)
+
+        elif self.name == 'fined_resnet':
+            return FinedResNet.build(shape, label_num)
+
+        else:
+            print("Unknown model")
+            sys.exit()
