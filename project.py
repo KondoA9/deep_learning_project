@@ -1,7 +1,7 @@
 from tensorflow.keras import callbacks, utils
 
-from models.resnet import ResNet
-from models.fined_resnet import FinedResNet
+from .models.resnet import ResNet
+from .models.fined_resnet import FinedResNet
 
 import os
 import sys
