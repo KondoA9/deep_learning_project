@@ -17,6 +17,7 @@ class Project:
         # directories
         self._tensorboard_dir = "../tmp/tb/" + name + '/'
         self._checkpoint_dir = "../tmp/cp/" + name + '/'
+        self._model_image_dir = "../model_image/"
         self._checkpoint_path = self._checkpoint_dir + 'checkpoint'
 
         # callbacks
@@ -33,14 +34,19 @@ class Project:
                 verbose=0))
 
         # create directories
-        os.makedirs(self._checkpoint_dir, exist_ok=True)
+        if not os.path.exists(self._tensorboard_dir):
+            os.makedirs(self._tensorboard_dir, exist_ok=True)
+        if not os.path.exists(self._checkpoint_dir):
+            os.makedirs(self._checkpoint_dir, exist_ok=True)
+        if not os.path.exists(self._model_image_dir):
+            os.makedirs(self._model_image_dir, exist_ok=True)
 
     def _exist_ckpt(self):
         return os.path.exists(self._checkpoint_path)
 
     def plot_model(self, model):
         utils.plot_model(model,
-                         '../model_image/' + self.name + '.png',
+                         self._model_image_dir + self.name + '.png',
                          show_shapes=True)
 
     def load_ckpt(self, model):
@@ -62,10 +68,10 @@ class Project:
 
         shape = (input_shape[0], input_shape[1], 3)
 
-        if self.name == 'resnet':
-            return ResNet.build(shape,label_num)
+        if model_name == 'resnet':
+            return ResNet.build(shape, label_num)
 
-        elif self.name == 'fined_resnet':
+        elif model_name == 'fined_resnet':
             return FinedResNet.build(shape, label_num)
 
         else:
