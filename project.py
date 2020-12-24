@@ -22,7 +22,9 @@ class Project:
 
         # callbacks
         self.callbacks.append(callbacks.ModelCheckpoint(
-            self._checkpoint_path, save_weights_only=True, verbose=1))
+            filepath=self._checkpoint_path,
+            save_weights_only=True,
+            verbose=1))
 
         self.callbacks.append(callbacks.TensorBoard(
             log_dir=self._tensorboard_dir, histogram_freq=1,
