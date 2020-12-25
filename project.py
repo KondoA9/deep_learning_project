@@ -2,6 +2,7 @@ from tensorflow.keras import callbacks, utils
 
 from .models.resnet import ResNet
 from .models.fined_resnet import FinedResNet
+from .models.fined_efficientnet import FinedEfficientNet
 
 import os
 import sys
@@ -65,6 +66,7 @@ class Project:
         Available model_name:
             'resnet',
             'fined_resnet'
+            'fined_efficientnet'
 
         """
 
@@ -75,6 +77,9 @@ class Project:
 
         elif model_name == 'fined_resnet':
             return FinedResNet.build(shape, label_num)
+
+        elif model_name == 'fined_efficientnet':
+            return FinedEfficientNet.build(shape, label_num)
 
         else:
             print("Unknown model")
