@@ -66,20 +66,35 @@ class Project:
         Available model_name:
             'resnet',
             'fined_resnet'
-            'fined_efficientnet'
+            'fined_efficientnetB*' * is 0~7
 
         """
 
         shape = (input_shape[0], input_shape[1], 3)
 
+        # ResNet
         if model_name == 'resnet':
             return ResNet.build(shape, label_num)
-
         elif model_name == 'fined_resnet':
             return FinedResNet.build(shape, label_num)
 
-        elif model_name == 'fined_efficientnet':
-            return FinedEfficientNet.build(shape, label_num)
+        # EfficientNet
+        elif model_name == 'fined_efficientnetB0':
+            return FinedEfficientNet.buildB0(shape, label_num)
+        elif model_name == 'fined_efficientnetB1':
+            return FinedEfficientNet.buildB1(shape, label_num)
+        elif model_name == 'fined_efficientnetB2':
+            return FinedEfficientNet.buildB2(shape, label_num)
+        elif model_name == 'fined_efficientnetB3':
+            return FinedEfficientNet.buildB3(shape, label_num)
+        elif model_name == 'fined_efficientnetB4':
+            return FinedEfficientNet.buildB4(shape, label_num)
+        elif model_name == 'fined_efficientnetB5':
+            return FinedEfficientNet.buildB5(shape, label_num)
+        elif model_name == 'fined_efficientnetB6':
+            return FinedEfficientNet.buildB6(shape, label_num)
+        elif model_name == 'fined_efficientnetB7':
+            return FinedEfficientNet.buildB7(shape, label_num)
 
         else:
             print("Unknown model")
